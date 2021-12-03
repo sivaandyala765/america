@@ -1,0 +1,47 @@
+Tomcat Setup in AWS Linux Server:
+--------------------------------
+Java Installation  in RHEL
+
+##Login as a root user
+sudo su -
+
+##Change dir to /opt 
+cd /opt
+yum install wget -y
+wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
+yum install jdk-8u131-linux-x64.rpm -y
+
+java -version
+
+Tomcat Download:
+----------------
+
+#Login as a root user
+sudo su -
+
+yum install wget unzip -y
+
+cd /opt
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.53/bin/apache-tomcat-9.0.53.zip
+
+unzip apache-tomcat-9.0.53.zip
+cd /opt/apache-tomcat-9.0.53/bin
+chmod u+x *.sh
+#sh /opt/apache-tomcat-9.0.50/bin/startup.sh
+ln -s /opt/apache-tomcat-9.0.53/bin/startup.sh /usr/bin/startTomcat
+ln -s /opt/apache-tomcat-9.0.53/bin/shutdown.sh /usr/bin/stopTomcat
+#ps -fax | grep tomcat
+#netstat -tunlap
+#vi /opt/apache-tomcat-9.0.45/webapps/manager/META-INF/context.xml
+#Comment the below lines
+#<!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+# allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+startTomcat
+#stopTomcat
+ 
+#Create a user
+#vi /opt/apache-tomcat-9.0.44/conf/tomcat-users.xml
+
+
+
+

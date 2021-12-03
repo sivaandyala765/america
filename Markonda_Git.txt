@@ -1,0 +1,275 @@
+Version Control:
+----------------
+SCM is a process of tracking and controlling the changes in the software development. The popular 
+SCM tools are listed below.
+- Git
+- SVN
+- CVS
+- Perforce
+- ClearCase
+- TFS (Team Foundation Service from Microsoft) ...etc.
+- Bitbucket
+
+
+SCM Goals
+- Team work
+- Defect tracking
+- Configuration auditing
+- Process management
+- Environment management
+
+SCM Terminologies
+- Server/Client
+- Repository
+- Workspace
+- Branch
+- Check-In/Check-Out
+- Revision
+- Baseline
+
+SCM Advantages
+ Supports for non-linear deployment.
+ It’s fully distributed.
+ Ability to handle large projects like Linux efficiently.
+ Speed
+
+Many of us aware about the version control when it comes to work with multiple developers on a 
+single project and collaborate with them. There is no doubt that version control make developers 
+work more easy and fast. In most of the organization developers use either Centralized Version 
+Control System(CVCS) like Subversion(SVN) or Concurrent Version System(CVS) or Distributed 
+Version Control System(DVCS) like Git (Written in C), Mercurial (Written in Python) or Bazaar 
+(Written in Python)
+
+
+What is Git?
+GIT is a distributed version-control system for tracking changes in source code during software 
+development. It is designed for coordinating work among programmers, but it can be used to track 
+changes in any set of files.
+
+Why Git is distributed model?
+One developer can share the changes to the repository (OR) Other developers so it’s called 
+distributed model.
+
+ If someone works on project, They have to clone their local machines.In this case local machines 
+behave like GIT server.
+ The idea is everyone work locally and all operations are going very fast............ 
+
+Why GIT is required in Projects?
+ Developers easily collaborate and work on same project.
+ Merging code changes are very easy.
+ SCM tools records all versions with
+- Time stamp (Date && Time)
+- Developer name/mail
+- Commit message
+
+ Debugging defects are simplified.
+ If latest software release has any issue. we can easily rollback to its previous version.
+ GIT is fast when it is compared with other version controlling tools.
+ It also works as backup our project code.
+
+Workspaces in GIT
+A workspace is simply a set of git repositories. There are 2-types workspaces in GIT.
+1. Central workspace (Bare)
+2. Local workspace/User workspace (Non Bare)
+
+Central workspace (Bare)
+It contains store and share the changes.
+Ex:
+- Github
+- Bitbucket ...etc.
+Local workspace/User workspace (Non Bare)
+We can modify the changes store and share the changes.
+
+What is GitHub?
+GitHub is a Git repository hosting service. GitHub also facilitates with many of its features, such as 
+access control and collaboration. It provides a Web-based graphical interface(GUI).
+GitHub is an American company. It hosts source code of your project in the form of different 
+programming languages and keeps track of the various changes made by programmers.
+It offers both distributed version control and source code management (SCM) functionality of Git. It
+also facilitates with some collaboration features such as bug tracking, feature requests, task 
+management for every project.
+
+
+Features of GitHub:
+
+GitHub is a place where programmers and designers work together. They collaborate, contribute, 
+and fix bugs together. It hosts plenty of open source projects and codes of various programming 
+languages.
+Some of its significant features are as follows.
+- Collaboration
+- Integrated issue and bug tracking
+- Graphical representation of branches
+- Git repositories hosting
+- Project management
+- Teat
+- Code hosting
+- Track and assign tasks
+- Conversationm managemens
+Benefits of GitHub
+GitHub can be separated as the Git and the Hub. GitHub service includes access controls as well as 
+collaboration features like task management, repository hosting, and team management.
+The key benefits of GitHub are as follows.
+- It is easy to contribute to open source projects via GitHub.
+- It helps to create an excellent document.
+- You can attract recruiter by showing off your work. If you have a profile on GitHub, you will 
+have a higher chance of being recruited.
+- It allows your work to get out there in front of the public.
+- You can track changes in your code across versions.
+
+
+GIT Client:
+For interaction between our local machine and remote git server(Github/Bitbucket) we need git 
+client.GIT supports both GUI (Graphical User Interface) & CLI (Command Line Interface).
+Ex:
+- Git bash
+- Source tree
+- Tortoise git
+- Git extension
+- Smartgit
+- Atom ....etc.
+---------------------------------------------------------------
+
+Git Commands:
+-------------
+git init
+git config --global user.name "markondareddy"
+git config --global user.email bmarkondareddy@yahoo.com
+
+git config --list
+git status
+
+mkdir sample
+cd sample
+touch text.txt
+
+git add .
+git commit -m "added test.txt file"
+git log
+
+git remote -v  - show connected repo
+git remote add origin https://github.com/markondareddy/sepbatch.git
+
+git remote -v
+ 
+generate git token :   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 
+
+got github.com -> settings -> developer settings -> personal access tokens -> generate new token
+
+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
+
+git push -u origin master
+
+git push -u origin test
+
+goto browser check master branch.
+
+https://www.nobledesktop.com/learn/git/git-branches
+git branch -a
+git branch -r
+git show-branch
+git branch <branch name>
+
+git checkout -b <branchname>
+git checkout dev
+
+touch text.txt
+
+git add .
+git status
+
+git commit -m "added test.txt file" .
+git status
+
+git remote add origin  <repo rul>
+
+git push -u origin <branchname>
+
+
+sekhar:
+touch second.txt
+git add .
+git status
+git commit -m "added second file"
+git push origin sekhar
+
+git checkout master   ->you must check out the branch that you want to merge another branch into
+
+
+Git Merge:
+---------
+
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+
+How to create branch:
+---------------------
+
+$ git checkout -b <branchname>
+Switched to a new branch "branchname"
+This is shorthand for:
+
+touch second.txt
+git add .
+git status
+git commit -m "added second file"
+git push origin <branchname>
+
+How to merge:
+-------------
+Merge : test -> master
+Step 1: switch to master branch
+$ git checkout master
+
+
+$ git merge test
+
+$ git push origin master
+
+
+
+
+
+How to clone the specified repo:
+--------------------------------
+
+goto one directory
+git init
+git clone -b markonda <repository>
+
+touch third.txt
+git add .
+git commit -m "third file"
+git status
+git push origin markonda
+
+How to pull the via gitbash:
+----------------------------
+git init
+git clone -b markonda https://github.com/yarrasani195/terraform.git
+git pull origin markonda
+
+
+
+#git clean -f : If we want to remove new files from working area.
+
+#git reset <<File Name>> : To untrack the tracked files (revert back to working area from staging area.).
+
+#git revert <<Commit ID>> : It will revert the changes committed in that particular commit id from local repo.
+#git push origin master -f: It will revert the changes from remote repo.
+
+
+https://manivelarjunan.medium.com/git-merge-vs-rebase-reset-vs-revert-vs-checkout-dd5674d0e18a
+
+
+
+git log --oneline
+git branch featur
+git branch
+
+git log --oneline
+git checkout featur
+git branch
+
+git branch -D defect(branch name)
+
+
+

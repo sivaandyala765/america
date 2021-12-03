@@ -1,0 +1,101 @@
+Declarative Pipeline:
+-----------------------
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "maven 3.8" and add it to the path.
+        maven "maven 3.8"
+    }
+
+    stages {
+        stage('get-source-code') {
+            steps {
+                // Get some code from a GitHub repository
+               git branch: 'master', credentialsId: 'spring-repo-credentials', url: 'https://github.com/markondareddy/spring-maven-hello-world.git'
+               
+            }
+        }
+        
+        stage('Clean') {
+             steps {
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true clean"
+                }
+        }
+        
+        stage('Package') {
+             steps {
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true package"
+                }
+        }
+        stage('Instance connection'){
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'linux-tomcat-connection', keyFileVariable: 'sshuserkey', passphraseVariable: 'sshpass', usernameVariable: 'linuxinstance')]) {
+                 echo 'Successfully Connected our tomcat server instance......'
+              }
+            }
+        }
+        
+        stage('Deploy artifact file'){
+            steps{
+              withCredentials([usernameColonPassword(credentialsId: 'test-tomcat', variable: 'testtomcat')]) {
+                 echo 'Successfully deploy artifact file in tomcat server............'  
+                 sh "curl -v -u ${testtomcat} -T /var/lib/jenkins/workspace/maven-pipeline/target/spring-maven-hello-world.war 'http://ec2-18-234-210-236.compute-1.amazonaws.com:8080/manager/text/deploy?path=/maven-pipeline&update=true'"
+              }
+            }
+        }
+        
+    }
+}
+
+
+Scipted pipeline:
+-----------------
+
+node {
+    def mvnHome
+  
+        stage('get-source-code') {
+          
+                // Get some code from a GitHub repository
+               git branch: 'master', credentialsId: 'spring-repo-credentials', url: 'https://github.com/markondareddy/spring-maven-hello-world.git'
+               mvnHome = tool 'maven 3.8'
+           
+        }
+        
+        stage('Clean') {
+            
+                // Run Maven on a Unix agent.
+               // sh "mvn -Dmaven.test.failure.ignore=true clean"
+               sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore=true clean"
+              
+        }
+        
+        stage('Package') {
+            
+                // Run Maven on a Unix agent.
+                //sh "mvn -Dmaven.test.failure.ignore=true package"
+                sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore=true package"
+             
+        }
+        stage('Instance connection'){
+           
+                withCredentials([sshUserPrivateKey(credentialsId: 'linux-tomcat-connection', keyFileVariable: 'sshuserkey', passphraseVariable: 'sshpass', usernameVariable: 'linuxinstance')]) {
+                 echo 'Successfully Connected our tomcat server instance......'
+              }
+          
+        }
+        
+        stage('Deploy artifact file'){
+          
+              withCredentials([usernameColonPassword(credentialsId: 'test-tomcat', variable: 'testtomcat')]) {
+                 echo 'Successfully deploy artifact file in tomcat server............'  
+                 sh "curl -v -u ${testtomcat} -T /var/lib/jenkins/workspace/maven-pipeline/target/spring-maven-hello-world.war 'http://ec2-18-234-210-236.compute-1.amazonaws.com:8080/manager/text/deploy?path=/scripted-pipeline&update=true'"
+              }
+           
+       
+        
+    }
+}
